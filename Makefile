@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: mdesmartin <mdesmartin@student.42lyon.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 13:18:39 by mvogel            #+#    #+#              #
-#    Updated: 2023/01/26 13:55:54 by mvogel           ###   ########lyon.fr    #
+#    Updated: 2023/01/27 13:36:34 by mdesmartin       ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,10 +44,10 @@ ft_printf :
 	make -C $(FT_PRINF_PATH)
 
 $(NAME): $(OBJ) lib ft_printf
-	$(CC) $(OBJ) $(LIBFT) $(FT_PRINF) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJ) $(LIBFT) $(FT_PRINF) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 %.o: %.c Makefile $(HEADER)
-	$(CC) $(CFLAGS) -I $(HEADER) -Imlx -o $@ -c $<
+	$(CC) $(CFLAGS) -I $(HEADER) /usr/include -Imlx_linux -O3 -o $@ -c $<
 
 clean:
 	$(RM) $(OBJ)
