@@ -6,7 +6,7 @@
 #    By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 13:18:39 by mvogel            #+#    #+#              #
-#    Updated: 2023/02/06 16:37:50 by mvogel           ###   ########lyon.fr    #
+#    Updated: 2023/02/06 17:45:51 by mvogel           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ FT_PRINTF_NAME = ft_printf.a
 
 FT_PRINTF = $(addprefix $(FT_PRINTF_PATH), $(FT_PRINTF_NAME))
 
-all: $(NAME)
+all: lib
+	make $(NAME)
 
 lib :
 	make -C $(LIBFT_PATH)
@@ -44,7 +45,7 @@ ft_printf :
 	make -C $(FT_PRINTF_PATH)
 
 $(NAME): $(OBJ) lib ft_printf
-	$(CC) $(OBJ) $(LIBFT) $(FT_PRINF) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) $(OBJ) $(LIBFT) $(FT_PRINTF) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 %.o: %.c Makefile $(HEADER)
 	$(CC) $(CFLAGS) /usr/include -Imlx_linux -O3 -o $@ -c $<

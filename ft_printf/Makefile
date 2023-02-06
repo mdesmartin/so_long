@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvogel <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/25 09:25:35 by mvogel            #+#    #+#              #
-#    Updated: 2022/11/25 09:25:37 by mvogel           ###   ########lyon.fr    #
+#    Updated: 2023/02/06 17:47:25 by mvogel           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,23 @@ CFLAGS = -Wall -Wextra -Werror
 ARFLAGS = rc
 
 SRC = ft_printf.c \
-	convert_n_print.c \
-	ft_printf_utils.c \
+	convert_n_print.c
 
 OBJ = $(SRC:.c=.o)
 
-all: $(NAME)
+LIB_PATH = ../libft/
 
-$(NAME): $(OBJ)
+LIB_NAME = libft.a
+
+LIB = $(addprefix $(LIB_PATH), $(LIB_NAME))
+
+all: lib
+	make $(NAME)
+
+lib :
+	make -C $(LIB_PATH)
+
+$(NAME): $(OBJ) lib
 	$(AR) $(ARFLAGS) $(NAME) $(OBJ)
 
 %.o: %.c Makefile $(HEADER)
@@ -37,11 +46,13 @@ $(NAME): $(OBJ)
 
 clean:
 	$(RM) $(OBJ)
+	make clean -C $(LIB_PATH)
 
 fclean: clean
 	$(RM) $(NAME)
+	make fclean -C $(LIB_PATH)
 
 re: fclean
 	$(MAKE) all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re lib
