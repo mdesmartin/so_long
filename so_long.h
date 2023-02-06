@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: mdesmartin <mdesmartin@student.42lyon.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 13:19:06 by mvogel            #+#    #+#             */
-/*   Updated: 2023/01/26 13:22:52 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/01/27 15:36:26 by mdesmartin       ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 # define SO_LONG_H
 # include "libft/libft.h"
 # include "ft_printf/ft_printf.h"
+# include "mlx_linux/mlx.h"
 
 #endif
