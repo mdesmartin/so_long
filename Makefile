@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mdesmartin <mdesmartin@student.42lyon.f    +#+  +:+       +#+         #
+#    By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 13:18:39 by mvogel            #+#    #+#              #
-#    Updated: 2023/01/27 13:36:34 by mdesmartin       ###   ########lyon.fr    #
+#    Updated: 2023/02/06 16:37:50 by mvogel           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,13 +41,13 @@ lib :
 	make -C $(LIBFT_PATH)
 
 ft_printf :
-	make -C $(FT_PRINF_PATH)
+	make -C $(FT_PRINTF_PATH)
 
 $(NAME): $(OBJ) lib ft_printf
 	$(CC) $(OBJ) $(LIBFT) $(FT_PRINF) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 %.o: %.c Makefile $(HEADER)
-	$(CC) $(CFLAGS) -I $(HEADER) /usr/include -Imlx_linux -O3 -o $@ -c $<
+	$(CC) $(CFLAGS) /usr/include -Imlx_linux -O3 -o $@ -c $<
 
 clean:
 	$(RM) $(OBJ)

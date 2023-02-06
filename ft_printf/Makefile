@@ -33,7 +33,7 @@ $(NAME): $(OBJ)
 	$(AR) $(ARFLAGS) $(NAME) $(OBJ)
 
 %.o: %.c Makefile $(HEADER)
-	$(CC) $(CFLAGS) -I $(HEADER) -o $@ -c $<
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 clean:
 	$(RM) $(OBJ)

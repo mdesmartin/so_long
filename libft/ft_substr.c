@@ -15,7 +15,6 @@
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*str;
-	size_t	i;
 
 	if (!(s))
 		return (NULL);
@@ -31,6 +30,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		*str = '\0';
 		return (str);
 	}
-	i = ft_strlcpy(str, s + start, len + 1);
+	ft_strlcpy(str, s + start, len + 1);
 	return (str);
 }
