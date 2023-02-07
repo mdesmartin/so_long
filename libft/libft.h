@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/16 14:34:42 by mvogel            #+#    #+#             */
-/*   Updated: 2023/01/23 14:03:43 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/07 13:29:57 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdint.h>
+# include <stdarg.h>
+# include <limits.h>
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
 
 typedef struct s_list
 {
@@ -68,5 +74,21 @@ void		ft_lstdelone(t_list *lst, void (*del)(void*));
 void		ft_lstclear(t_list **lst, void (*del)(void*));
 void		ft_lstiter(t_list *lst, void (*f)(void *));
 t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+// printf
+int			ft_printf(const char *txt, ...);
+int			flag_type(va_list arg, const char *txt);
+int			print_pt(unsigned long x);
+int			print_hexa(unsigned int x, int upper);
+int			print_nbr(int i);
+int			print_unsigned(int u);
+void		ft_putlongnbr_fd(long n, int fd);
+
+// gnl
+char		*get_next_line(int fd);
+char		*read_n_join(char *stash, int fd);
+char		*fill(char *stash, char *line);
+char		*clean(char *stash);
+char		*add_to_stash(char *stash, char *buffer);
 
 #endif

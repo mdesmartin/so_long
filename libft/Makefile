@@ -6,7 +6,7 @@
 #    By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 13:20:33 by mvogel            #+#    #+#              #
-#    Updated: 2023/01/25 16:45:10 by mvogel           ###   ########lyon.fr    #
+#    Updated: 2023/02/07 13:32:01 by mvogel           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,10 @@ SRC = ft_atoi.c \
 	ft_lstdelone.c \
 	ft_lstclear.c \
 	ft_lstiter.c \
-	ft_lstmap.c
+	ft_lstmap.c \
+	ft_printf.c \
+	ft_printf_utils.c \
+	get_next_line.c
 
 OBJ = $(SRC:.c=.o)
 

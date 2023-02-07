@@ -6,7 +6,7 @@
 #    By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 13:18:39 by mvogel            #+#    #+#              #
-#    Updated: 2023/02/06 17:45:51 by mvogel           ###   ########lyon.fr    #
+#    Updated: 2023/02/07 14:16:52 by mvogel           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,38 +29,27 @@ LIBFT_NAME = libft.a
 
 LIBFT = $(addprefix $(LIBFT_PATH), $(LIBFT_NAME))
 
-FT_PRINTF_PATH = ft_printf/
-
-FT_PRINTF_NAME = ft_printf.a
-
-FT_PRINTF = $(addprefix $(FT_PRINTF_PATH), $(FT_PRINTF_NAME))
-
-all: lib
+all: libft
 	make $(NAME)
 
-lib :
+libft :
 	make -C $(LIBFT_PATH)
 
-ft_printf :
-	make -C $(FT_PRINTF_PATH)
-
-$(NAME): $(OBJ) lib ft_printf
+$(NAME): $(OBJ)
 	$(CC) $(OBJ) $(LIBFT) $(FT_PRINTF) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 %.o: %.c Makefile $(HEADER)
-	$(CC) $(CFLAGS) /usr/include -Imlx_linux -O3 -o $@ -c $<
+	$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -o $@ -c $<
 
 clean:
 	$(RM) $(OBJ)
 	make clean -C $(LIBFT_PATH)
-	make clean -C $(FT_PRINTF_PATH)
 
 fclean: clean
 	$(RM) $(NAME)
 	make fclean -C $(LIBFT_PATH)
-	make fclean -C $(FT_LIBFT_PATH)
 
 re: fclean
 	$(MAKE) all
 
-.PHONY: all bonus clean fclean re libft ft_printf
+.PHONY: all bonus clean fclean re libft

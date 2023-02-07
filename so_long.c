@@ -3,25 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mdesmartin <mdesmartin@student.42lyon.f    +#+  +:+       +#+        */
+/*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 13:19:11 by mvogel            #+#    #+#             */
-/*   Updated: 2023/01/30 15:10:20 by mdesmartin       ###   ########lyon.fr   */
+/*   Updated: 2023/02/07 15:47:48 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-int	main(void)
+int	main(int argc, char **argv)
 {
+	parsing(argc, argv);
+
 	void	*mlx;
 	void	*mlx_win;
 

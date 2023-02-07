@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvogel <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 09:16:30 by mvogel            #+#    #+#             */
-/*   Updated: 2022/11/25 09:16:31 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/07 13:17:47 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 int	flag_type(va_list arg, const char *txt)
 {
