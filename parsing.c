@@ -6,13 +6,15 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:03:47 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/07 16:58:01 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/08 16:11:05 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "so_long.h"
+
 // doublons de E P?, un ;oins un collectible
 // carte fermee
-// chemin possible, backtracking
+// chemin possible, backtracking TO DO
 // compter lxL
 // quitter proprement et "Error\nMessage\n"
 
@@ -23,29 +25,57 @@
 // comte si le nombre de collectible est le meme aue necesaire. gardcer xy de p
 // pour commencer le backtracking
 
-void	parsing(int argc, char **argv)
+//garder la position de P et E et C
+
+void	check_arg(t_sl *sl, char **argv)
 {
-	int	l;
+	int		len;
 	char	*next;
 	char	*first;
 
-	l = ft_strlen(argv[1]);
-	if (&argv[1][l - 4] != ".ber")
-		return (ft_putstr_fd("Error\nMap extention is not .ber", 2));
-
-// mesure la map
+	len = ft_strlen(argv[1]);
+	if (ft_strncmp(&argv[1][len - 4], ".ber", 4))
+		return (ft_putstr_fd("Error\nMap extention is not .ber\n", 2), exit(0));
 	first = get_next_line(open(argv[1], O_RDONLY));
 	if (!first)
-		return (ft_putstr_fd("Error\nNothing to read", 2));
-	else
-		struct. = 1;
+		return (ft_putstr_fd("Error\nNothintg to read\n", 2), exit(0));
+	sl->x = ft_strlen(first) + 1;
+	sl->y = 1;
+	next = get_next_line(open(argv[1], O_RDONLY));
 	while (next)
 	{
+		if (sl->x != (int)ft_strlen(next))
+			return (ft_putstr_fd("Error\nMap is not regular\n", 2), exit(0));
+		sl->y += 1;
 		free(next);
 		next = get_next_line(open(argv[1], O_RDONLY));
-		struct.width += 1
-		if (ft_strlen(first) != ft_strlen(next))
-			return (ft_putstr_fd("Error\nMap width is not regular", 2));
 	}
+	free(next);
+}
 
+void	fill_map(t_sl *sl, char **argv)
+{
+	char	*str;
+	int		i;
+
+	i = 0;
+	sl->map = malloc(sizeof(char *) * sl->y + 1);
+	if (!sl->map)
+		return ;
+	str = get_next_line(open(argv[1], O_RDONLY));
+	while (str)
+	{
+		sl->map[i] = ft_substr(str, 0, sl->x);
+		free(str);
+		str = get_next_line(open(argv[1], O_RDONLY));
+		i++;
+	}
+	free(str);
+}
+
+void	parsing(t_sl *sl, char **argv)
+{
+	check_arg(sl, argv);
+	fill_map(sl, argv);
+	check_error(sl);
 }

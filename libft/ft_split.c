@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvogel <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 13:14:25 by mvogel            #+#    #+#             */
-/*   Updated: 2022/11/22 13:14:27 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/08 15:53:13 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,6 @@ static int	ft_len_word(char const *s, char c)
 		i++;
 	}
 	return (i);
-}
-
-static void	*ft_free(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i] != NULL)
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-	return (NULL);
 }
 
 static int	ft_numb_word(char const *s, char c)
@@ -75,7 +61,7 @@ char	**ft_split(char const *s, char c)
 		len_word = ft_len_word(s, c);
 		split[i] = ft_substr(s, 0, len_word);
 		if (!split[i])
-			return (ft_free(split));
+			return (ft_free_tab(split));
 		i++;
 		s += len_word;
 	}

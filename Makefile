@@ -6,7 +6,7 @@
 #    By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 13:18:39 by mvogel            #+#    #+#              #
-#    Updated: 2023/02/07 14:16:52 by mvogel           ###   ########lyon.fr    #
+#    Updated: 2023/02/08 14:38:58 by mvogel           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,8 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
 SRC = so_long.c \
+		parsing.c \
+		check_error.c
 
 OBJ = $(SRC:.c=.o)
 

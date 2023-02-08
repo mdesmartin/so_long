@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   ft_free_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/26 13:19:11 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/08 14:40:50 by mvogel           ###   ########lyon.fr   */
+/*   Created: 2023/02/08 15:49:56 by mvogel            #+#    #+#             */
+/*   Updated: 2023/02/08 15:56:07 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	*ft_free_tab(char **tab)
 {
-	t_sl	sl;
+	int	i;
 
-	(void) argc;
-	parsing(&sl, argv);
+	i = 0;
+	while (tab[i] != NULL)
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+	return (NULL);
 }
