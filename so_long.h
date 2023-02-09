@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 13:19:06 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/09 15:29:22 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/09 17:11:42 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,5 @@ typedef struct s_sl
 
 void	parsing(t_sl *sl, t_sl *sl_cp, char **argv);
 void	check_error(t_sl *sl, t_sl *cp);
-
 
 #endif

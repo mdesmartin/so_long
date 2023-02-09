@@ -6,42 +6,26 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:03:47 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/09 15:32:14 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/09 17:10:13 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-// doublons de E P?, un ;oins un collectible
-// carte fermee
-// chemin possible, backtracking TO DO
-// compter lxL
-// quitter proprement et "Error\nMessage\n"
-
-// mettre dans un tab integr2 a une structure
-
-// recursive, avance dans une direction puis revient en arriere quand bloqu2
-// comme en tampon grace a al arecursive, puiune fois que plus aucune solution
-// comte si le nombre de collectible est le meme aue necesaire. gardcer xy de p
-// pour commencer le backtracking
-
-//garder la position de P et E et C
-
-void	check_arg(t_sl *sl, char **argv)
+void	check_map(t_sl *sl, char **argv)
 {
 	int		fd;
 	int		next_size;
 	char	*next;
 	char	*first;
 
-	if (ft_strncmp(&argv[1][ft_strlen(argv[1]) - 4], ".ber", 4))
-		return (ft_putstr_fd("Error\nMap extention is not .ber\n", 2), exit(0));
 	fd = open(argv[1], O_RDONLY);
 	first = get_next_line(fd);
 	if (!first)
 		return (ft_putstr_fd("Error\nNothintg to read\n", 2), exit(0));
 	sl->x = ft_strlen(first) - 1;
 	next = get_next_line(fd);
+	sl->y = 1;
 	while (next)
 	{
 		next_size = ft_strlen(next);
@@ -49,6 +33,7 @@ void	check_arg(t_sl *sl, char **argv)
 			next_size--;
 		if (sl->x != next_size)
 			return (ft_putstr_fd("Error\nMap is not regular\n", 2), exit(0));
+		sl->y += 1;
 		free(next);
 		next = get_next_line(fd);
 	}
@@ -68,11 +53,9 @@ void	fill_map(t_sl *sl, char **argv)
 		return ;
 	fd = open(argv[1], O_RDONLY);
 	str = get_next_line(fd);
-	sl->y = 0;
 	while (str)
 	{
 		sl->map[i] = ft_substr(str, 0, sl->x);
-		sl->y += 1;
 		free(str);
 		str = get_next_line(fd);
 		i++;
@@ -82,12 +65,52 @@ void	fill_map(t_sl *sl, char **argv)
 	free(str);
 }
 
+void	check_end(int y, int x, t_sl *cp)
+{
+	if (cp->map[y][x] == 'C')
+		cp->nb_c += 1;
+	if (cp->map[y][x] == 'E')
+		cp->nb_e += 1;
+
+	print_map(cp->map);
+	cp->map[y][x] = '1';
+	if (cp->map[y - 1][x] != '1')
+		check_end(y - 1, x, cp);
+	if (cp->map[y][x + 1] != '1')
+		check_end(y, x + 1, cp);
+	if (cp->map[y + 1][x] != '1')
+		check_end(y + 1, x, cp);
+	if (cp->map[y][x - 1] != '1')
+		check_end(y, x - 1, cp);
+}
+
 void	parsing(t_sl *sl, t_sl *sl_cp, char **argv)
 {
-	check_arg(sl, argv);
+	int	x;
+	int	y;
+
+	if (ft_strncmp(&argv[1][ft_strlen(argv[1]) - 4], ".ber", 4))
+		return (ft_putstr_fd("Error\nMap extention is not .ber\n", 2), exit(0));
+	check_map(sl, argv);
+	sl_cp->y = sl->y;
+	sl_cp->x = sl->x;
 	fill_map(sl, argv);
-	// fill_map(sl_cp, argv);
-	ft_printf("y : %d\nx : %d\n", sl->y, sl->x);
+	fill_map(sl_cp, argv);
 	check_error(sl, sl_cp);
-	ft_printf("p_y : %d\np_x : %d\n", sl->p_y, sl->p_x);
+
+	y = sl->p_y;
+	x = sl->p_x;
+	check_end(y, x, sl_cp);
+	if (sl_cp->nb_e != 1)
+		return (ft_putstr_fd("Error\nThe map cannot be finished", 2) \
+		, ft_free_tab(sl->map), exit(0));
+	if (sl_cp->nb_c != sl->nb_c)
+		return (ft_putstr_fd("Error\nCannot collect all collectibles", 2) \
+		, ft_free_tab(sl->map), exit(0));
 }
+
+	// ft_printf("P : %d\n", sl->nb_p);
+	// ft_printf("E : %d\n", sl->nb_e);
+	// ft_printf("C : %d\n", sl->nb_c);
+	// ft_printf("p_y : %d\np_x : %d\n", sl->p_y, sl->p_x);
+	// print_map(cp->map);
