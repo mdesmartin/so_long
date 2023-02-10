@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:03:47 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/09 17:10:13 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/10 12:32:17 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	check_end(int y, int x, t_sl *cp)
 	if (cp->map[y][x] == 'E')
 		cp->nb_e += 1;
 
-	print_map(cp->map);
 	cp->map[y][x] = '1';
 	if (cp->map[y - 1][x] != '1')
 		check_end(y - 1, x, cp);
@@ -84,11 +83,13 @@ void	check_end(int y, int x, t_sl *cp)
 		check_end(y, x - 1, cp);
 }
 
-void	parsing(t_sl *sl, t_sl *sl_cp, char **argv)
+void	parsing(t_sl *sl, t_sl *sl_cp, int argc, char **argv)
 {
 	int	x;
 	int	y;
 
+	if (argc != 2)
+		return (ft_putstr_fd("Error\nOne map needed in argument\n", 2), exit(0));
 	if (ft_strncmp(&argv[1][ft_strlen(argv[1]) - 4], ".ber", 4))
 		return (ft_putstr_fd("Error\nMap extention is not .ber\n", 2), exit(0));
 	check_map(sl, argv);
