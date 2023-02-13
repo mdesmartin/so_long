@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 13:19:06 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/10 17:17:01 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/13 17:47:50 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@ typedef struct s_sl
 	int				x;
 	int				y;
 
-	int				p_x;
-	int				p_y;
+	int				player_x;
+	int				player_y;
+	int				exit_x;
+	int				exit_y;
+
+	int				move;
 
 	int				nb_p;
 	int				nb_e;
@@ -34,20 +38,19 @@ typedef struct s_sl
 	int				img_width;
 	int				img_height;
 
-	char			*path_wall;
-	char			*path_floor;
-	char			*path_collectible;
-	char			*path_exit;
-	char			*path_position;
-
 	void			*wall;
 	void			*floor;
 	void			*collectible;
 	void			*exit;
+	void			*open_exit;
 	void			*position;
 }					t_sl;
 
 void	parsing(t_sl *sl, t_sl *sl_cp, int argc, char **argv);
 void	check_error(t_sl *sl, t_sl *cp);
+int		ft_key(int key, t_sl *sl, t_sl *sl_cp);
+void	init_map(t_sl *sl, t_sl *sl_cp);
+void	init_img(t_sl *sl, t_sl *sl_cp);
+int		free_n_close(t_sl *sl);
 
 #endif

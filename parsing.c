@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:03:47 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/10 12:32:17 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/13 16:53:06 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	check_end(int y, int x, t_sl *cp)
 		cp->nb_c += 1;
 	if (cp->map[y][x] == 'E')
 		cp->nb_e += 1;
-
 	cp->map[y][x] = '1';
 	if (cp->map[y - 1][x] != '1')
 		check_end(y - 1, x, cp);
@@ -98,9 +97,8 @@ void	parsing(t_sl *sl, t_sl *sl_cp, int argc, char **argv)
 	fill_map(sl, argv);
 	fill_map(sl_cp, argv);
 	check_error(sl, sl_cp);
-
-	y = sl->p_y;
-	x = sl->p_x;
+	y = sl->player_y;
+	x = sl->player_x;
 	check_end(y, x, sl_cp);
 	if (sl_cp->nb_e != 1)
 		return (ft_putstr_fd("Error\nThe map cannot be finished", 2) \
@@ -108,10 +106,5 @@ void	parsing(t_sl *sl, t_sl *sl_cp, int argc, char **argv)
 	if (sl_cp->nb_c != sl->nb_c)
 		return (ft_putstr_fd("Error\nCannot collect all collectibles", 2) \
 		, ft_free_tab(sl->map), exit(0));
+	ft_free_tab(sl_cp->map);
 }
-
-	// ft_printf("P : %d\n", sl->nb_p);
-	// ft_printf("E : %d\n", sl->nb_e);
-	// ft_printf("C : %d\n", sl->nb_c);
-	// ft_printf("p_y : %d\np_x : %d\n", sl->p_y, sl->p_x);
-	// print_map(cp->map);

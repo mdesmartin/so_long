@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:07:15 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/09 17:11:09 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/13 17:54:50 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,30 +33,31 @@ void	check_walls(t_sl *sl)
 	}
 }
 
-void	check_items(t_sl *sl)
+void	check_items(t_sl *sl, t_sl *sl_cp)
 {
-	int	x;
-	int	y;
-
-	y = 0;
-	while (sl->map[y])
+	sl_cp->y = 0;
+	while (sl->map[sl_cp->y])
 	{
-		x = 0;
-		while (sl->map[y][x])
+		sl_cp->x = 0;
+		while (sl->map[sl_cp->y][sl_cp->x])
 		{
-			if (sl->map[y][x] == 'P')
+			if (sl->map[sl_cp->y][sl_cp->x] == 'P')
 			{
-				sl->p_x = x;
-				sl->p_y = y;
+				sl->player_x = sl_cp->x;
+				sl->player_y = sl_cp->y;
 				sl->nb_p += 1;
 			}
-			if (sl->map[y][x] == 'E')
+			if (sl->map[sl_cp->y][sl_cp->x] == 'E')
+			{
+				sl->exit_x = sl_cp->x;
+				sl->exit_y = sl_cp->y;
 				sl->nb_e += 1;
-			if (sl->map[y][x] == 'C')
+			}
+			if (sl->map[sl_cp->y][sl_cp->x] == 'C')
 				sl->nb_c += 1;
-			x++;
+			sl_cp->x++;
 		}
-		y++;
+		sl_cp->y++;
 	}
 }
 
@@ -67,9 +68,8 @@ void	check_error(t_sl *sl, t_sl *cp)
 	sl->nb_c = 0;
 	cp->nb_c = 0;
 	cp->nb_e = 0;
-
 	check_walls(sl);
-	check_items(sl);
+	check_items(sl, cp);
 	if (sl->nb_p != 1)
 		return (ft_putstr_fd("Error\nToo many/few position, only one needed", 2) \
 		, ft_free_tab(sl->map), exit(0));
