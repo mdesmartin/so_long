@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 13:19:11 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/10 17:50:15 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/13 11:16:21 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ void	print_map(char **map)
 void	init_img(t_sl *sl)
 {
 	sl->mlx = mlx_init();
-	sl->mlx_win = mlx_new_window(sl->mlx, sl->img_width * sl->x, sl->img_height *sl->y, "Hello world!");
 
 	sl->img_width = 64;
 	sl->img_height = 64;
+	
+	sl->mlx_win = mlx_new_window(sl->mlx, sl->img_width * sl->x, sl->img_height * sl->y, "Hello world!");
 
 	sl->path_wall = "img/wall.xpm";
 	sl->path_floor = "img/floor.xpm";
@@ -66,22 +67,23 @@ void	init_map(t_sl *sl)
 			x++;
 		}
 		y++;
+	}
 }
 
 int	ft_key(int key, t_sl *sl)
 {
-	ft_printf("%d", key);
+	ft_printf("%d : %d : %d\n", key, sl->p_x, sl->x);
 	(void) sl;
-	// mlx_put_image_to_window(sl->mlx, sl->mlx_win, sl->floor, x * sl->img_width, y * sl->img_width);
-	// if (key == 100)
-	// 	p_x += 1;
-	// if (key == g)
-	// 	p_x -= 1;
-	// if (key == h)
-	// 	p_y -= 1;
-	// if (key == b)
-	// 	p_y -= 1;
-	// mlx_put_image_to_window(sl->mlx, sl->mlx_win, sl->position, x * sl->img_width, y * sl->img_width);
+	mlx_put_image_to_window(sl->mlx, sl->mlx_win, sl->floor, sl->p_x * sl->img_width, sl->p_y * sl->img_width);
+	if (key == 100 && sl->map[sl->p_y][sl->p_x + 1] != '1')//d
+		sl->p_x += 1;
+	if (key == 97 && sl->map[sl->p_y][sl->p_x - 1] != '1')//g
+		sl->p_x -= 1;
+	if (key == 115 && sl->map[sl->p_y + 1][sl->p_x] != '1')
+		sl->p_y += 1;
+	if (key == 119 && sl->map[sl->p_y - 1][sl->p_x] != '1')
+		sl->p_y -= 1;
+	mlx_put_image_to_window(sl->mlx, sl->mlx_win, sl->position, sl->p_x * sl->img_width, sl->p_y * sl->img_width);
 	return (0);
 }
 
@@ -93,7 +95,6 @@ int	main(int argc, char **argv)
 	parsing(&sl, &sl_cp, argc, argv);
 	init_img(&sl);
 	init_map(&sl);
-
 	mlx_key_hook(sl.mlx_win, ft_key, &sl);
 	mlx_loop(sl.mlx);
 	return (0);
