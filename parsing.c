@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:03:47 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/13 16:53:06 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/15 16:32:30 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ void	check_map(t_sl *sl, char **argv)
 		free(next);
 		next = get_next_line(fd);
 	}
-	close(fd);
+	free(first);
 	free(next);
+	close(fd);
 }
 
 void	fill_map(t_sl *sl, char **argv)
@@ -48,7 +49,7 @@ void	fill_map(t_sl *sl, char **argv)
 	int		fd;
 
 	i = 0;
-	sl->map = malloc(sizeof(char *) * sl->y + 1);
+	sl->map = malloc(sizeof(char *) * (sl->y + 1));
 	if (!sl->map)
 		return ;
 	fd = open(argv[1], O_RDONLY);
