@@ -6,25 +6,30 @@
 #    By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 13:18:39 by mvogel            #+#    #+#              #
-#    Updated: 2023/02/13 16:39:40 by mvogel           ###   ########lyon.fr    #
+#    Updated: 2023/02/20 17:07:52 by mvogel           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
+# ------------------------------- VARIABLES ---------------------------------- #
 
 NAME = so_long
 
-HEADER = so_long.h
+HDR_PATH = include/
 
-CC = gcc
+HDR_LST = so_long.h \
+			prototype.h \
+			structure.h
 
-CFLAGS = -Wall -Wextra -Werror
+HDR = $(addprefix $(HDR_PATH), $(HDR_LST))
 
-SRC = main.c \
-		parsing.c \
-		check_error.c \
-		display_n_move.c
+SRC_PATH = src/
 
-OBJ = $(SRC:.c=.o)
+SRC_LST = main.c \
+			parsing.c \
+			check_error.c \
+			display_n_move.c
+
+SRC = $(addprefix $(SRC_PATH), $(SRC_LST))
 
 LIBFT_PATH = libft/
 
@@ -32,27 +37,100 @@ LIBFT_NAME = libft.a
 
 LIBFT = $(addprefix $(LIBFT_PATH), $(LIBFT_NAME))
 
-all: libft
-	make $(NAME)
+MLX_LINUX_PATH = mlx_linux/
 
-libft :
-	make -C $(LIBFT_PATH)
+MLX_MAC_PATH = mlx_mac/
 
-$(NAME): $(OBJ)
-	$(CC) $(OBJ) $(LIBFT) $(FT_PRINTF) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+MLX_NAME = libmlx.a
 
-%.o: %.c Makefile $(HEADER)
-	$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -o $@ -c $<
+UNAME := $(shell uname)
 
-clean:
-	$(RM) $(OBJ)
-	make clean -C $(LIBFT_PATH)
+OBJ_PATH = obj/
 
-fclean: clean
+OBJ = $(patsubst $(SRC_PATH)%.c, $(OBJ_PATH)%.o, $(SRC))
+
+CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_PATH) -I $(HDR_PATH)
+
+# ------------------------------- KERNEL ------------------------------------- #
+
+ifeq ($(UNAME), Linux)
+MLX_FLAGS =	-L $(MLX_LINUX_PATH) -l Xext -l X11 -l m
+MLX = $(addprefix $(MLX_LINUX_PATH), $(MLX_NAME))
+CFLAGS = -Wall -Wextra -Werror -I $(MLX_LINUX_PATH) -I $(LIBFT_PATH) -I $(HDR_PATH)
+endif
+
+ifeq ($(UNAME), Darwin)
+MLX_FLAGS =	-L $(MLX_MAC_PATH) -l mlx -framework OpenGL -framework AppKit
+MLX = $(addprefix $(MLX_MAC_PATH), $(MLX_NAME))
+CFLAGS = -Wall -Wextra -Werror -I $(MLX_MAC_PATH) -I $(LIBFT_PATH) -I $(HDR_PATH)
+endif
+
+ifeq ($(UNAME), Linux)
+all: mlx_linux
+endif
+
+ifeq ($(UNAME), Darwin)
+all: mlx_mac
+endif
+
+##
+
+# ------------------------------- COMPILE ------------------------------------ #
+
+all: $(NAME)
+
+$(NAME):  $(LIBFT) $(MLX) $(OBJ_PATH) $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(MLX_FLAGS)
+
+$(OBJ_PATH)%.o : $(SRC_PATH)%.c $(HDR)
+			$(CC) $(CFLAGS) -c $< -o $@
+
+$(LIBFT) : FORCE
+	$(MAKE) -C $(LIBFT_PATH)
+
+$(OBJ_PATH) :
+	mkdir -p $(OBJ_PATH)
+
+mlx_linux :
+	$(MAKE) -C $(MLX_LINUX_PATH)
+
+mlx_mac :
+	$(MAKE) -C $(MLX_MAC_PATH)
+
+FORCE :
+
+# ------------------------------- CLEAN -------------------------------------- #
+
+ifeq ($(UNAME), Linux)
+clean :
+	$(MAKE) -C $(LIBFT_PATH) clean
+	$(MAKE) -C $(MLX_LINUX_PATH) clean
+	$(RM) -rf $(OBJ_PATH)
+endif
+
+ifeq ($(UNAME), Darwin)
+clean :
+	$(MAKE) -C $(LIBFT_PATH) clean
+	$(MAKE) -C $(MLX_MAC_PATH) clean
+	$(RM) -rf $(OBJ_PATH)
+endif
+
+ifeq ($(UNAME), Linux)
+fclean : clean
+	$(MAKE) -C $(LIBFT_PATH) fclean
+	$(MAKE) -C $(MLX_LINUX_PATH) clean
 	$(RM) $(NAME)
-	make fclean -C $(LIBFT_PATH)
+endif
 
-re: fclean
+ifeq ($(UNAME), Darwin)
+fclean : clean
+	$(MAKE) -C $(LIBFT_PATH) fclean
+	$(MAKE) -C $(MLX_MAC_PATH) clean
+	$(RM) $(NAME)
+endif
+
+re : fclean
 	$(MAKE) all
 
-.PHONY: all bonus clean fclean re libft
+.PHONY: all libft mlx_linux mlx_mac clean fclean re
+ 

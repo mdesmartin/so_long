@@ -6,13 +6,13 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:03:47 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/15 16:32:30 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/16 10:37:26 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	check_map(t_sl *sl, char **argv)
+int	check_map(t_sl *sl, char **argv)
 {
 	int		fd;
 	int		next_size;
@@ -22,7 +22,7 @@ void	check_map(t_sl *sl, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	first = get_next_line(fd);
 	if (!first)
-		return (ft_putstr_fd("Error\nNothintg to read\n", 2), exit(0));
+		return (ft_putstr_fd("Error\nNothintg to read\n", 2), exit(0), 0);
 	sl->x = ft_strlen(first) - 1;
 	next = get_next_line(fd);
 	sl->y = 1;
@@ -32,14 +32,12 @@ void	check_map(t_sl *sl, char **argv)
 		if (next[next_size - 1] == '\n')
 			next_size--;
 		if (sl->x != next_size)
-			return (ft_putstr_fd("Error\nMap is not regular\n", 2), exit(0));
+			return (ft_putstr_fd("Error\nMap is not regular\n", 2), exit(0), 0);
 		sl->y += 1;
 		free(next);
 		next = get_next_line(fd);
 	}
-	free(first);
-	free(next);
-	close(fd);
+	return (free(first), free(next), close(fd));
 }
 
 void	fill_map(t_sl *sl, char **argv)

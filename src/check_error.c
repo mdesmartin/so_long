@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:07:15 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/13 17:54:50 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/16 10:39:38 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ void	check_walls(t_sl *sl)
 		x = 0;
 		while (sl->map[y][x])
 		{
+			if (sl->map[y][x] != '1' && sl->map[y][x] != '0'
+				&& sl->map[y][x] != 'P' && sl->map[y][x] != 'C'
+				&& sl->map[y][x] != 'E')
+				return (ft_putstr_fd("Error\nForbidden char in map\n", 2), \
+				ft_free_tab(sl->map), exit(0));
 			if ((x == 0 || x == sl->x - 1 || y == 0
 					|| y == sl->y - 1) && sl->map[y][x] != '1')
 				return (ft_putstr_fd("Error\nMissing wall\n", 2) \

@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 16:03:12 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/15 15:45:34 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/16 10:20:40 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_img(t_sl *sl, t_sl *sl_cp)
 	sl->img_width = 64;
 	sl->img_height = 64;
 	sl->mlx_win = mlx_new_window(sl->mlx, \
-		sl->img_width * sl->x, sl->img_height * sl->y, "Hello world!");
+		sl->img_width * sl->x, sl->img_height * sl->y, "so_long");
 	sl->wall = mlx_xpm_file_to_image(sl->mlx, \
 		"img/wall.xpm", &sl->img_width, &sl->img_height);
 	sl->floor = mlx_xpm_file_to_image(sl->mlx, \
