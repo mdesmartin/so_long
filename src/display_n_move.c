@@ -6,33 +6,62 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 16:03:12 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/16 10:20:40 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/24 16:02:27 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	init_img(t_sl *sl, t_sl *sl_cp)
+void	init_img(t_sl *sl)
 {
-	sl->mlx = mlx_init();
+	sl->wall = mlx_xpm_file_to_image(sl->mlx, \
+		"img/wall.xpm", &sl->img_width, &sl->img_height);
+	if (!sl->wall)
+		free_n_close(sl);
+	sl->floor = mlx_xpm_file_to_image(sl->mlx, \
+		"img/floor.xpm", &sl->img_width, &sl->img_height);
+	if (!sl->floor)
+		free_n_close(sl);
+	sl->collectible = mlx_xpm_file_to_image(sl->mlx, \
+		"img/collectible.xpm", &sl->img_width, &sl->img_height);
+	if (!sl->collectible)
+		free_n_close(sl);
+	sl->exit = mlx_xpm_file_to_image(sl->mlx, \
+		"img/exit.xpm", &sl->img_width, &sl->img_height);
+	if (!sl->exit)
+		free_n_close(sl);
+	sl->open_exit = mlx_xpm_file_to_image(sl->mlx, \
+		"img/open_exit.xpm", &sl->img_width, &sl->img_height);
+	if (!sl->open_exit)
+		free_n_close(sl);
+	sl->position = mlx_xpm_file_to_image(sl->mlx, \
+		"img/position.xpm", &sl->img_width, &sl->img_height);
+	if (!sl->position)
+		free_n_close(sl);
+}
+
+void	init_mlx(t_sl *sl, t_sl *sl_cp)
+{
 	sl->move = 1;
 	sl_cp->nb_c = 0;
 	sl->img_width = 64;
 	sl->img_height = 64;
+	sl->mlx = NULL;
+	sl->mlx_win = NULL;
+	sl->wall = NULL;
+	sl->floor = NULL;
+	sl->collectible = NULL;
+	sl->exit = NULL;
+	sl->open_exit = NULL;
+	sl->position = NULL;
+	sl->mlx = mlx_init();
+	if (!sl->mlx)
+		free_n_close(sl);
+	init_img(sl);
 	sl->mlx_win = mlx_new_window(sl->mlx, \
 		sl->img_width * sl->x, sl->img_height * sl->y, "so_long");
-	sl->wall = mlx_xpm_file_to_image(sl->mlx, \
-		"img/wall.xpm", &sl->img_width, &sl->img_height);
-	sl->floor = mlx_xpm_file_to_image(sl->mlx, \
-		"img/floor.xpm", &sl->img_width, &sl->img_height);
-	sl->collectible = mlx_xpm_file_to_image(sl->mlx, \
-		"img/collectible.xpm", &sl->img_width, &sl->img_height);
-	sl->exit = mlx_xpm_file_to_image(sl->mlx, \
-		"img/exit.xpm", &sl->img_width, &sl->img_height);
-	sl->open_exit = mlx_xpm_file_to_image(sl->mlx, \
-		"img/open_exit.xpm", &sl->img_width, &sl->img_height);
-	sl->position = mlx_xpm_file_to_image(sl->mlx, \
-		"img/position.xpm", &sl->img_width, &sl->img_height);
+	if (!sl->mlx_win)
+		free_n_close(sl);
 }
 
 void	init_map(t_sl *sl, t_sl *sl_cp)

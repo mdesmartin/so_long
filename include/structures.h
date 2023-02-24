@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 13:19:06 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/20 12:23:50 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/24 14:45:27 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 typedef struct s_sl
 {
 	char			**map;
+	int				fd;
 	int				x;
 	int				y;
 

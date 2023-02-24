@@ -6,7 +6,7 @@
 #    By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 13:18:39 by mvogel            #+#    #+#              #
-#    Updated: 2023/02/20 17:07:52 by mvogel           ###   ########lyon.fr    #
+#    Updated: 2023/02/21 12:23:06 by mvogel           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,9 +45,7 @@ MLX_NAME = libmlx.a
 
 UNAME := $(shell uname)
 
-OBJ_PATH = obj/
-
-OBJ = $(patsubst $(SRC_PATH)%.c, $(OBJ_PATH)%.o, $(SRC))
+OBJ = $(SRC:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_PATH) -I $(HDR_PATH)
 
@@ -73,23 +71,18 @@ ifeq ($(UNAME), Darwin)
 all: mlx_mac
 endif
 
-##
-
 # ------------------------------- COMPILE ------------------------------------ #
 
 all: $(NAME)
 
-$(NAME):  $(LIBFT) $(MLX) $(OBJ_PATH) $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(MLX_FLAGS)
+%.o : %.c $(HDR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_PATH)%.o : $(SRC_PATH)%.c $(HDR)
-			$(CC) $(CFLAGS) -c $< -o $@
+$(NAME): $(OBJ) $(LIBFT) $(MLX)
+	$(CC) $(CFLAGS) $^ -o $@ $(MLX_FLAGS)
 
 $(LIBFT) : FORCE
 	$(MAKE) -C $(LIBFT_PATH)
-
-$(OBJ_PATH) :
-	mkdir -p $(OBJ_PATH)
 
 mlx_linux :
 	$(MAKE) -C $(MLX_LINUX_PATH)
@@ -105,14 +98,14 @@ ifeq ($(UNAME), Linux)
 clean :
 	$(MAKE) -C $(LIBFT_PATH) clean
 	$(MAKE) -C $(MLX_LINUX_PATH) clean
-	$(RM) -rf $(OBJ_PATH)
+	$(RM) $(OBJ)
 endif
 
 ifeq ($(UNAME), Darwin)
 clean :
 	$(MAKE) -C $(LIBFT_PATH) clean
 	$(MAKE) -C $(MLX_MAC_PATH) clean
-	$(RM) -rf $(OBJ_PATH)
+	$(RM) $(OBJ)
 endif
 
 ifeq ($(UNAME), Linux)
@@ -132,5 +125,5 @@ endif
 re : fclean
 	$(MAKE) all
 
-.PHONY: all libft mlx_linux mlx_mac clean fclean re
+.PHONY: all libft mlx_linux mlx_mac clean fclean re FORCE
  

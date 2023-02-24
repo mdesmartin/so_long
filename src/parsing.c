@@ -6,38 +6,57 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:03:47 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/16 10:37:26 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/24 16:27:40 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	display_error(char *msg)
+{
+	ft_putstr_fd(msg, 2);
+	exit(1);
+}
+
+
+void	check_malloc(char *str, char *msg)
+{
+	if (!str)
+		display_error(msg);
+}
+
 
 int	check_map(t_sl *sl, char **argv)
 {
 	int		fd;
 	int		next_size;
 	char	*next;
-	char	*first;
+	int		error;
 
+	error = 0;
 	fd = open(argv[1], O_RDONLY);
-	first = get_next_line(fd);
-	if (!first)
-		return (ft_putstr_fd("Error\nNothintg to read\n", 2), exit(0), 0);
-	sl->x = ft_strlen(first) - 1;
+	if (fd == -1)
+		display_error("Error\nMap not opened");
 	next = get_next_line(fd);
-	sl->y = 1;
+	check_malloc(next, "Error\nNothintg to read\n");//addclose fd
+	sl->x = ft_strlen(next) - 1;
+	sl->y = 0;
 	while (next)
 	{
 		next_size = ft_strlen(next);
 		if (next[next_size - 1] == '\n')
 			next_size--;
 		if (sl->x != next_size)
-			return (ft_putstr_fd("Error\nMap is not regular\n", 2), exit(0), 0);
+			error = 1;
 		sl->y += 1;
 		free(next);
 		next = get_next_line(fd);
+		// check_malloc(next, "Error\nMalloc error in check_map\n");
 	}
-	return (free(first), free(next), close(fd));
+	if (error == 1)
+		return (free(next), close(fd), \
+		display_error("Error\nMap is not regular\n"), 0);
+	return (free(next), close(fd));
 }
 
 void	fill_map(t_sl *sl, char **argv)
@@ -49,14 +68,18 @@ void	fill_map(t_sl *sl, char **argv)
 	i = 0;
 	sl->map = malloc(sizeof(char *) * (sl->y + 1));
 	if (!sl->map)
-		return ;
+		display_error("Error\nMalloc issue in fill_map");
 	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+		display_error("Error\nMap not opened");
 	str = get_next_line(fd);
+	check_malloc(str, "Error\nNothintg to read\n");//addclosefd
 	while (str)
 	{
 		sl->map[i] = ft_substr(str, 0, sl->x);
 		free(str);
 		str = get_next_line(fd);
+		// check_malloc(next, "Error\nNothintg to read\n", fd);
 		i++;
 	}
 	sl->map[i] = NULL;
@@ -100,10 +123,10 @@ void	parsing(t_sl *sl, t_sl *sl_cp, int argc, char **argv)
 	x = sl->player_x;
 	check_end(y, x, sl_cp);
 	if (sl_cp->nb_e != 1)
-		return (ft_putstr_fd("Error\nThe map cannot be finished", 2) \
-		, ft_free_tab(sl->map), exit(0));
+		return (ft_putstr_fd("Error\nThe map cannot be finished\n", 2) \
+		, ft_free_tab(sl->map), ft_free_tab(sl_cp->map), exit(0));
 	if (sl_cp->nb_c != sl->nb_c)
-		return (ft_putstr_fd("Error\nCannot collect all collectibles", 2) \
-		, ft_free_tab(sl->map), exit(0));
+		return (ft_putstr_fd("Error\nCannot collect all collectibles\n", 2) \
+		, ft_free_tab(sl->map), ft_free_tab(sl_cp->map), exit(0));
 	ft_free_tab(sl_cp->map);
 }
