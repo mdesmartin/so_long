@@ -6,23 +6,26 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:03:47 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/24 16:27:40 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/27 16:10:56 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	display_error(char *msg)
+void	error_n_exit(char *msg)
 {
 	ft_putstr_fd(msg, 2);
 	exit(1);
 }
 
 
-void	check_malloc(char *str, char *msg)
+void	check_malloc(char *str, int fd, char *msg)
 {
 	if (!str)
-		display_error(msg);
+	{
+		close(fd);
+		error_n_exit(msg);
+	}
 }
 
 
@@ -36,9 +39,9 @@ int	check_map(t_sl *sl, char **argv)
 	error = 0;
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		display_error("Error\nMap not opened");
+		error_n_exit("Error\nMap not opened\n");
 	next = get_next_line(fd);
-	check_malloc(next, "Error\nNothintg to read\n");//addclose fd
+	check_malloc(next, fd, "Error\nNothintg to read\n");
 	sl->x = ft_strlen(next) - 1;
 	sl->y = 0;
 	while (next)
@@ -55,7 +58,7 @@ int	check_map(t_sl *sl, char **argv)
 	}
 	if (error == 1)
 		return (free(next), close(fd), \
-		display_error("Error\nMap is not regular\n"), 0);
+		error_n_exit("Error\nMap is not regular\n"), 0);
 	return (free(next), close(fd));
 }
 
@@ -68,12 +71,12 @@ void	fill_map(t_sl *sl, char **argv)
 	i = 0;
 	sl->map = malloc(sizeof(char *) * (sl->y + 1));
 	if (!sl->map)
-		display_error("Error\nMalloc issue in fill_map");
+		error_n_exit("Error\nMalloc issue in fill_map\n");
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		display_error("Error\nMap not opened");
+		error_n_exit("Error\nMap not opened\n");
 	str = get_next_line(fd);
-	check_malloc(str, "Error\nNothintg to read\n");//addclosefd
+	check_malloc(str, fd, "Error\nNothintg to read\n"); //free(sl->map)
 	while (str)
 	{
 		sl->map[i] = ft_substr(str, 0, sl->x);

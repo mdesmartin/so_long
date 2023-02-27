@@ -6,11 +6,17 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 13:19:11 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/24 16:01:13 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/27 16:52:44 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	error_n_close(char *msg, t_sl *sl)
+{
+	ft_putstr_fd(msg, 2);
+	free_n_close(sl);
+}
 
 int	free_n_close(t_sl *sl)
 {
@@ -43,7 +49,7 @@ int	main(int argc, char **argv)
 	t_sl	sl_cp;
 
 	parsing(&sl, &sl_cp, argc, argv);
-	init_mlx(&sl, &sl_cp);
+	init_mlx(&sl);
 	init_map(&sl, &sl_cp);
 	mlx_key_hook(sl.mlx_win, ft_key, &sl);
 	mlx_hook(sl.mlx_win, 17, 0L, free_n_close, &sl);

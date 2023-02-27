@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 13:19:06 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/24 13:57:31 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/27 16:56:24 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 
 void	parsing(t_sl *sl, t_sl *sl_cp, int argc, char **argv);
 void	check_error(t_sl *sl, t_sl *cp);
-int		ft_key(int key, t_sl *sl, t_sl *sl_cp);
+int		ft_key(int key, t_sl *sl);
 void	init_map(t_sl *sl, t_sl *sl_cp);
-void	init_mlx(t_sl *sl, t_sl *sl_cp);
+void	init_mlx(t_sl *sl);
 int		free_n_close(t_sl *sl);
+void	error_n_close(char *msg, t_sl *sl);
 
 #endif

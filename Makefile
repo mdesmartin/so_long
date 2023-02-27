@@ -6,7 +6,7 @@
 #    By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 13:18:39 by mvogel            #+#    #+#              #
-#    Updated: 2023/02/21 12:23:06 by mvogel           ###   ########lyon.fr    #
+#    Updated: 2023/02/27 14:09:36 by mvogel           ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,7 @@ endif
 
 all: $(NAME)
 
-%.o : %.c $(HDR)
+%.o : %.c Makefile $(HDR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ) $(LIBFT) $(MLX)
