@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:03:47 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/27 16:10:56 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/28 10:43:18 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	check_map(t_sl *sl, char **argv)
 		sl->y += 1;
 		free(next);
 		next = get_next_line(fd);
-		// check_malloc(next, "Error\nMalloc error in check_map\n");
 	}
 	if (error == 1)
 		return (free(next), close(fd), \
@@ -69,22 +68,28 @@ void	fill_map(t_sl *sl, char **argv)
 	int		fd;
 
 	i = 0;
+
 	sl->map = malloc(sizeof(char *) * (sl->y + 1));
 	if (!sl->map)
-		error_n_exit("Error\nMalloc issue in fill_map\n");
+		return (error_n_exit("Error\nCan't create map\n"));
+
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		error_n_exit("Error\nMap not opened\n");
+
 	str = get_next_line(fd);
 	check_malloc(str, fd, "Error\nNothintg to read\n"); //free(sl->map)
+
+
 	while (str)
 	{
 		sl->map[i] = ft_substr(str, 0, sl->x);
 		free(str);
 		str = get_next_line(fd);
-		// check_malloc(next, "Error\nNothintg to read\n", fd);
-		i++;
+		i++; 
 	}
+	if (i != sl->y)
+		error
 	sl->map[i] = NULL;
 	close (fd);
 	free(str);

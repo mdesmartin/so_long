@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:07:15 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/27 16:54:59 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/02/28 09:45:17 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,6 @@ void	check_error(t_sl *sl, t_sl *sl_cp)
 		return (ft_putstr_fd("Error\nToo many/few exit, only one needed\n", 2) \
 		, ft_free_tab(sl->map), ft_free_tab(sl_cp->map), exit(0));
 	if (sl->nb_c == 0)
-		return (ft_putstr_fd("Error\nToo few Collectible, \
-		at least one needed\n", 2), ft_free_tab(sl->map), ft_free_tab(sl_cp->map), exit(0));
+		return (ft_putstr_fd("Error\nToo few Collectible\n", 2), \
+		ft_free_tab(sl->map), ft_free_tab(sl_cp->map), exit(0));
 }
