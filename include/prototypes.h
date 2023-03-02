@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prototypes.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: mehdidesmartin <mehdidesmartin@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 13:19:06 by mvogel            #+#    #+#             */
-/*   Updated: 2023/02/27 16:56:24 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/03/02 13:15:06 by mehdidesmar      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int		ft_key(int key, t_sl *sl);
 void	init_map(t_sl *sl, t_sl *sl_cp);
 void	init_mlx(t_sl *sl);
 int		free_n_close(t_sl *sl);
+void	error_n_exit(char *msg);
 void	error_n_close(char *msg, t_sl *sl);
+void	check_map(t_sl *sl, t_sl *sl_cp);
 
 #endif

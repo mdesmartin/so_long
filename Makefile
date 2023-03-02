@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: mehdidesmartin <mehdidesmartin@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 13:18:39 by mvogel            #+#    #+#              #
-#    Updated: 2023/02/27 14:09:36 by mvogel           ###   ########lyon.fr    #
+#    Updated: 2023/03/02 13:16:01 by mehdidesmar      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,9 @@ SRC_PATH = src/
 SRC_LST = main.c \
 			parsing.c \
 			check_error.c \
-			display_n_move.c
+			check_map.c \
+			display.c \
+			exit.c \
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_LST))
 
