@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehdidesmartin <mehdidesmartin@student.    +#+  +:+       +#+        */
+/*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:14:51 by mehdidesmar       #+#    #+#             */
-/*   Updated: 2023/03/02 13:17:32 by mehdidesmar      ###   ########lyon.fr   */
+/*   Updated: 2023/03/02 13:35:28 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	x_size(t_sl *sl)
 
 void	check_map(t_sl *sl, t_sl *sl_cp)
 {
-	sl->y =	y_size(sl);
+	sl->y = y_size(sl);
 	sl->x = x_size(sl);
 	if (sl->y == 0 || sl->x == -1)
 	{

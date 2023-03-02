@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehdidesmartin <mehdidesmartin@student.    +#+  +:+       +#+        */
+/*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:03:47 by mvogel            #+#    #+#             */
-/*   Updated: 2023/03/02 13:14:40 by mehdidesmar      ###   ########lyon.fr   */
+/*   Updated: 2023/03/02 13:35:44 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	fill_map(t_sl *sl, char **argv)
 		error_n_exit("Error\nFailed to open map\n");
 	line = (char *)ft_calloc(size, sizeof(char));
 	if (!line)
-		error_n_exit("Error\nFailed to malloc map\n");;
+		error_n_exit("Error\nFailed to malloc map\n");
 	if (read (fd, line, size) == -1)
 	{
 		close(fd);

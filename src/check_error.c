@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mehdidesmartin <mehdidesmartin@student.    +#+  +:+       +#+        */
+/*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:07:15 by mvogel            #+#    #+#             */
-/*   Updated: 2023/03/02 13:05:54 by mehdidesmar      ###   ########lyon.fr   */
+/*   Updated: 2023/03/02 13:35:26 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ void	check_error(t_sl *sl, t_sl *sl_cp)
 	check_walls(sl, sl_cp);
 	check_items(sl, sl_cp);
 	if (sl->nb_p != 1)
-		return (ft_putstr_fd("Error\nToo many/few position, only one needed\n", 2) \
+		return (ft_putstr_fd("Error\nOnly one position needed\n", 2) \
 		, ft_free_tab(sl->map), ft_free_tab(sl_cp->map), exit(0));
 	if (sl->nb_e != 1)
-		return (ft_putstr_fd("Error\nToo many/few exit, only one needed\n", 2) \
+		return (ft_putstr_fd("Error\nOnly one exit needed\n", 2) \
 		, ft_free_tab(sl->map), ft_free_tab(sl_cp->map), exit(0));
 	if (sl->nb_c == 0)
 		return (ft_putstr_fd("Error\nToo few Collectible\n", 2), \
