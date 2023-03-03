@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 16:03:12 by mvogel            #+#    #+#             */
-/*   Updated: 2023/03/02 13:35:32 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/03/03 18:42:55 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,12 @@ int	can_move(char next, t_sl *sl)
 		if (!sl->nb_c)
 			free_n_close(sl);
 		else
-			return (0);
+		{
+			mlx_put_image_to_window(sl->mlx, sl->mlx_win, sl->hidden_exit, \
+			sl->exit_x * sl->img_width, sl->exit_y * sl->img_width);
+			ft_printf("%d\n", sl->move++);
+			return (1);
+		}
 	}
 	else if (next == '1')
 		return (0);
@@ -127,8 +132,14 @@ int	ft_key(int key, t_sl *sl)
 		free_n_close(sl);
 	if (key == 100 || key == 97 || key == 115 || key == 119)
 	{
-		mlx_put_image_to_window(sl->mlx, sl->mlx_win, sl->floor, \
-		sl->player_x * sl->img_width, sl->player_y * sl->img_width);
+		if (sl->map[sl->player_y][sl->player_x] == 'E')
+		{
+			mlx_put_image_to_window(sl->mlx, sl->mlx_win, sl->exit, \
+			sl->exit_x * sl->img_width, sl->exit_y * sl->img_width);
+		}
+		else
+			mlx_put_image_to_window(sl->mlx, sl->mlx_win, sl->floor, \
+			sl->player_x * sl->img_width, sl->player_y * sl->img_width);
 		if (key == 100 && can_move(sl->map[sl->player_y][sl->player_x + 1], \
 		sl))
 			sl->player_x += 1;
@@ -141,7 +152,8 @@ int	ft_key(int key, t_sl *sl)
 		else if (key == 119
 			&& can_move(sl->map[sl->player_y - 1][sl->player_x], sl))
 			sl->player_y -= 1;
-		sl->map[sl->player_y][sl->player_x] = '0';
+		if (sl->map[sl->player_y][sl->player_x] == 'C')
+			sl->map[sl->player_y][sl->player_x] = '0';
 		mlx_put_image_to_window(sl->mlx, sl->mlx_win, sl->position, \
 			sl->player_x * sl->img_width, sl->player_y * sl->img_width);
 	}

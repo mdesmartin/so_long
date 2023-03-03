@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 15:03:47 by mvogel            #+#    #+#             */
-/*   Updated: 2023/03/02 13:35:44 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/03/03 17:13:10 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	file_size(char **argv)
 	size = 1;
 	while (read(fd, &buff, 1))
 		size++;
+	if (size < 2)
+		return (close(fd), error_n_exit("Error\nMap is empty\n"), -1);
 	close(fd);
 	return (size);
 }
@@ -41,7 +43,7 @@ void	fill_map(t_sl *sl, char **argv)
 	line = (char *)ft_calloc(size, sizeof(char));
 	if (!line)
 		error_n_exit("Error\nFailed to malloc map\n");
-	if (read (fd, line, size) == -1)
+	if (read(fd, line, size) == -1)
 	{
 		close(fd);
 		free(line);
