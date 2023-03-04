@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: mehdidesmartin <mehdidesmartin@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 16:03:12 by mvogel            #+#    #+#             */
-/*   Updated: 2023/03/03 18:42:55 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/03/04 01:43:20 by mehdidesmar      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ void	init_img(t_sl *sl)
 		"img/open_exit.xpm", &sl->img_width, &sl->img_height);
 	if (!sl->open_exit)
 		error_n_close("Error\nMissing open_exit image\n", sl);
+	sl->hidden_exit = mlx_xpm_file_to_image(sl->mlx, \
+		"img/hidden_exit.xpm", &sl->img_width, &sl->img_height);
+	if (!sl->hidden_exit)
+		error_n_close("Error\nMissing hidden_exit image\n", sl);
 	sl->position = mlx_xpm_file_to_image(sl->mlx, \
 		"img/position.xpm", &sl->img_width, &sl->img_height);
 	if (!sl->position)
@@ -52,6 +56,7 @@ void	init_mlx(t_sl *sl)
 	sl->collectible = NULL;
 	sl->exit = NULL;
 	sl->open_exit = NULL;
+	sl->hidden_exit = NULL;
 	sl->position = NULL;
 	sl->mlx = mlx_init();
 	if (!sl->mlx)
@@ -154,7 +159,11 @@ int	ft_key(int key, t_sl *sl)
 			sl->player_y -= 1;
 		if (sl->map[sl->player_y][sl->player_x] == 'C')
 			sl->map[sl->player_y][sl->player_x] = '0';
-		mlx_put_image_to_window(sl->mlx, sl->mlx_win, sl->position, \
+		if (sl->map[sl->player_y][sl->player_x] == 'E')
+			mlx_put_image_to_window(sl->mlx, sl->mlx_win, sl->hidden_exit, \
+			sl->exit_x * sl->img_width, sl->exit_y * sl->img_width);
+		else
+			mlx_put_image_to_window(sl->mlx, sl->mlx_win, sl->position, \
 			sl->player_x * sl->img_width, sl->player_y * sl->img_width);
 	}
 	return (0);

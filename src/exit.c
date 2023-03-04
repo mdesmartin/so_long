@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: mehdidesmartin <mehdidesmartin@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 13:34:09 by mvogel            #+#    #+#             */
-/*   Updated: 2023/03/02 13:35:34 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/03/04 01:40:16 by mehdidesmar      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	free_n_close(t_sl *sl)
 		mlx_destroy_image(sl->mlx, sl->exit);
 	if (sl->open_exit != NULL)
 		mlx_destroy_image(sl->mlx, sl->open_exit);
+	if (sl->hidden_exit != NULL)
+		mlx_destroy_image(sl->mlx, sl->hidden_exit);
 	if (sl->position != NULL)
 		mlx_destroy_image(sl->mlx, sl->position);
 	if (sl->mlx != NULL)
