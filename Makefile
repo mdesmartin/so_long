@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: mehdidesmartin <mehdidesmartin@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 13:18:39 by mvogel            #+#    #+#              #
-#    Updated: 2023/03/02 13:35:49 by mvogel           ###   ########lyon.fr    #
+#    Updated: 2023/03/04 16:34:11 by mehdidesmar      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC_LST = main.c \
 			parsing.c \
 			check_error.c \
 			check_map.c \
+			init.c \
 			display.c \
 			exit.c \
 

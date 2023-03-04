@@ -6,7 +6,7 @@
 /*   By: mehdidesmartin <mehdidesmartin@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 13:19:06 by mvogel            #+#    #+#             */
-/*   Updated: 2023/03/02 13:15:06 by mehdidesmar      ###   ########lyon.fr   */
+/*   Updated: 2023/03/04 16:35:06 by mehdidesmar      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ int		free_n_close(t_sl *sl);
 void	error_n_exit(char *msg);
 void	error_n_close(char *msg, t_sl *sl);
 void	check_map(t_sl *sl, t_sl *sl_cp);
+void	display_img(t_sl *sl, int y, int x, char img);
 
 #endif

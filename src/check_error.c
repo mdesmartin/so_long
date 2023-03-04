@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: mehdidesmartin <mehdidesmartin@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 14:07:15 by mvogel            #+#    #+#             */
-/*   Updated: 2023/03/03 17:12:40 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/03/04 16:00:29 by mehdidesmar      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	check_error(t_sl *sl, t_sl *sl_cp)
 	check_walls(sl, sl_cp);
 	check_items(sl, sl_cp);
 	if (sl->nb_p != 1)
-		return (ft_putstr_fd("Error\nOne position needed\n", 2) \
+		return (ft_putstr_fd("Error\nOne player needed\n", 2) \
 		, ft_free_tab(sl->map), ft_free_tab(sl_cp->map), exit(0));
 	if (sl->nb_e != 1)
 		return (ft_putstr_fd("Error\nOne exit needed\n", 2) \

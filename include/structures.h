@@ -6,7 +6,7 @@
 /*   By: mehdidesmartin <mehdidesmartin@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 13:19:06 by mvogel            #+#    #+#             */
-/*   Updated: 2023/03/04 01:24:58 by mehdidesmar      ###   ########lyon.fr   */
+/*   Updated: 2023/03/04 16:00:18 by mehdidesmar      ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_sl
 	void			*exit;
 	void			*open_exit;
 	void			*hidden_exit;
-	void			*position;
+	void			*player;
 }					t_sl;
 
 #endif

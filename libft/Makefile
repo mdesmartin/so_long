@@ -3,18 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: mehdidesmartin <mehdidesmartin@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/17 13:20:33 by mvogel            #+#    #+#              #
-#    Updated: 2023/02/08 15:56:32 by mvogel           ###   ########lyon.fr    #
+#    Updated: 2023/03/04 16:49:48 by mehdidesmar      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
 HEADER = libft.h
-
-CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
