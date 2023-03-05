@@ -6,7 +6,7 @@
 /*   By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 16:03:12 by mvogel            #+#    #+#             */
-/*   Updated: 2023/03/04 16:53:02 by mvogel           ###   ########lyon.fr   */
+/*   Updated: 2023/03/05 14:38:09 by mvogel           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ int	can_move(char next, t_sl *sl)
 	if (next == 'E')
 	{
 		if (!sl->nb_c)
+		{
+			ft_printf("%d\n", sl->move++);
 			free_n_close(sl);
+		}
 		else
 			display_img(sl, sl->exit_y, sl->exit_x, 'H');
 	}
