@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvogel <mvogel@student.42lyon.fr>          +#+  +:+       +#+         #
+#    By: mehdidesmartin <mehdidesmartin@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 13:18:39 by mvogel            #+#    #+#              #
-#    Updated: 2023/03/05 15:34:50 by mvogel           ###   ########lyon.fr    #
+#    Updated: 2023/03/06 16:06:24 by mehdidesmar      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,11 +60,11 @@ MLX = $(addprefix $(MLX_LINUX_PATH), $(MLX_NAME))
 
 all: $(NAME)
 
-%.o : %.c Makefile $(HDR)
-	$(CC) $(CFLAGS) -c $< -o $@
-
 $(NAME):  $(OBJ) $(LIBFT) $(MLX)
 	$(CC) $(CFLAGS) $^ -o $@ $(MLX_FLAGS)
+
+%.o : %.c $(HDR) Makefile
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT) : FORCE
 	$(MAKE) -C $(LIBFT_PATH)
