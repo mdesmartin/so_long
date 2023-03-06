@@ -6,7 +6,7 @@
 #    By: mehdidesmartin <mehdidesmartin@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/26 13:18:39 by mvogel            #+#    #+#              #
-#    Updated: 2023/03/06 16:06:24 by mehdidesmar      ###   ########lyon.fr    #
+#    Updated: 2023/03/06 17:08:20 by mehdidesmar      ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,6 @@ NAME = so_long
 HDR_PATH = include/
 
 HDR_LST = so_long.h \
-			prototype.h \
-			structure.h
 
 HDR = $(addprefix $(HDR_PATH), $(HDR_LST))
 
@@ -63,7 +61,7 @@ all: $(NAME)
 $(NAME):  $(OBJ) $(LIBFT) $(MLX)
 	$(CC) $(CFLAGS) $^ -o $@ $(MLX_FLAGS)
 
-%.o : %.c $(HDR) Makefile
+%.o : %.c $(HDR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT) : FORCE
